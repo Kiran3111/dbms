@@ -1,0 +1,613 @@
+//SQL Create Tables
+
+-- creating a database for students
+CREATE DATABASE STUDENTS_Info;
+
+-- selecting the database
+USE STUDENTS_Info;
+
+-- creating a table for students
+CREATE TABLE Students(Id int not null Primary Key, Name varchar(20), TotalMarks int);
+CREATE TABLE Grades(Id int not null AUTO_INCREMENT Primary Key, grade varchar(10));
+
+-- inserting table data
+
+INSERT INTO Students VALUES (1,'Nitesh',90);
+INSERT INTO Students VALUES (2,'Ajay',50);
+INSERT INTO Students VALUES (3,'Vivek',70);
+INSERT INTO Students VALUES (4,'Sanket',80);
+INSERT INTO Students VALUES (5,'Yash',65);
+INSERT INTO Students VALUES (6,'Prathamesh',55);
+INSERT INTO Students VALUES (7,'Kiran',75);
+
+INSERT INTO Grades(grade) VALUES ('A');
+INSERT INTO Grades(grade) VALUES ('B');
+INSERT INTO Grades(grade) VALUES ('A');
+INSERT INTO Grades(grade) VALUES ('C');
+INSERT INTO Grades(grade) VALUES ('B');
+INSERT INTO Grades(grade) VALUES ('A');
+INSERT INTO Grades(grade) VALUES ('B');
+INSERT INTO Grades(grade) VALUES ('C');
+
+
+-- Viewing both the tables
+SELECT * FROM Students;
+SELECT * FROM Grades;
+
+-- Finding average marks of students
+SELECT AVG(TotalMarks) FROM Students;
+
+-- Finding marks of a particular student
+SELECT * FROM Students WHERE Name LIKE '%Nitesh%';
+
+-- Finding students whose marks is above avg
+SELECT Name AS "Students above AVG" FROM Students WHERE TotalMarks > (SELECT AVG(TotalMarks) FROM Students);
+
+
+
+
+
+
+
+
+// SQL CRUD
+
+-- creating a database for students
+CREATE DATABASE STUDENTS_Info;
+
+-- selecting the database
+USE STUDENTS_Info;
+
+-- creating a table for students
+CREATE TABLE Students(Id int not null Primary Key, Name varchar(20), TotalMarks int);
+CREATE TABLE Grades(Id int not null AUTO_INCREMENT Primary Key, grade varchar(10));
+
+-- inserting table data
+
+INSERT INTO Students VALUES (1,'Nitesh',90);
+INSERT INTO Students VALUES (2,'Ajay',50);
+INSERT INTO Students VALUES (3,'Vivek',70);
+INSERT INTO Students VALUES (4,'Sanket',80);
+INSERT INTO Students VALUES (5,'Yash',65);
+INSERT INTO Students VALUES (6,'Prathamesh',55);
+INSERT INTO Students VALUES (7,'Kiran',75);
+
+INSERT INTO Grades(grade) VALUES ('A');
+INSERT INTO Grades(grade) VALUES ('B');
+INSERT INTO Grades(grade) VALUES ('A');
+INSERT INTO Grades(grade) VALUES ('C');
+INSERT INTO Grades(grade) VALUES ('B');
+INSERT INTO Grades(grade) VALUES ('A');
+INSERT INTO Grades(grade) VALUES ('B');
+INSERT INTO Grades(grade) VALUES ('C');
+
+-- firstly run practical a2_1 file commands
+SELECT * FROM Students;
+SELECT * FROM Grades;
+
+-- inserting values into tables
+INSERT INTO Students VALUES (8,"Shubham",80);
+INSERT INTO Grades(grade) VALUES ("B");
+INSERT INTO Students VALUES (9,"Rohan",85);
+INSERT INTO Grades(grade) VALUES ("A");
+
+-- changing values of the records
+UPDATE Students SET TotalMarks = 85 WHERE Id = 5;
+UPDATE Students SET TotalMarks = 89 WHERE Id = 6;
+UPDATE Students SET TotalMarks = 95 WHERE Id = 1;
+
+-- deleting records
+DELETE FROM Students WHERE Id=8;
+DELETE FROM Students WHERE Name="Rohan";
+DELETE FROM Students WHERE Name="Kiran";
+
+-- viewing the records
+SeLECT * FROM Students;
+
+
+
+
+
+
+
+
+
+
+
+
+
+//SQL Joins and Views
+
+-- creating a database for students
+CREATE DATABASE STUDENTS_Info;
+
+-- selecting the database
+USE STUDENTS_Info;
+
+-- creating a table for students
+CREATE TABLE Students(Id int not null Primary Key, Name varchar(20), TotalMarks int);
+CREATE TABLE Grades(Id int not null AUTO_INCREMENT Primary Key, grade varchar(10));
+
+-- inserting table data
+
+INSERT INTO Students VALUES (1,'Nitesh',90);
+INSERT INTO Students VALUES (2,'Ajay',50);
+INSERT INTO Students VALUES (3,'Vivek',70);
+INSERT INTO Students VALUES (4,'Sanket',80);
+INSERT INTO Students VALUES (5,'Yash',65);
+INSERT INTO Students VALUES (6,'Prathamesh',55);
+INSERT INTO Students VALUES (7,'Kiran',75);
+
+INSERT INTO Grades(grade) VALUES ('A');
+INSERT INTO Grades(grade) VALUES ('B');
+INSERT INTO Grades(grade) VALUES ('A');
+INSERT INTO Grades(grade) VALUES ('C');
+INSERT INTO Grades(grade) VALUES ('B');
+INSERT INTO Grades(grade) VALUES ('A');
+INSERT INTO Grades(grade) VALUES ('B');
+INSERT INTO Grades(grade) VALUES ('C');
+
+-- creating a joint
+SELECT Students.Id, Students.Name, Grades.grade FROM Students INNER JOIN Grades ON Students.Id=Grades.Id;
+SELECT Students.Id, Students.Name, Grades.grade, Students.TotalMarks FROM Students INNER JOIN Grades ON Students.Id=Grades.Id;
+
+-- creating views
+CREATE VIEW Average_Students AS SELECT Name, TotalMarks FROM Students WHERE TotalMarks > (SELECT AVG(TotalMarks) FROM Students);
+CREATE VIEW Topper_Students AS SELECT Name, TotalMarks FROM Students WHERE TotalMarks > 90;
+
+-- Calling the created views
+SELECT * FROM Average_Students;
+SELECT * FROM Topper_Students;
+
+-- Commands with subqueries
+SELECT Name AS "FirstClass Students" FROM Students WHERE Id IN (SELECT Id FROM Students WHERE TotalMarks > 60);
+SELECT Name AS "Distinction Students" FROM Students WHERE Id IN (SELECT Id FROM Students WHERE TotalMarks > 75);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Oracle Control Structures and Exception Handling
+
+/*
+   ⁜ Control Statements and Exception Handling
+
+   » Write a PL/SQL block of code for the following requirements:-
+   Schema:
+   1. Borrower(Rollin, Name, DateofIssue, NameofBook, Status)
+   2. Fine(Roll_no,Date,Amt)
+   3. Accept roll_no & name of book from user.
+   4. Check the number of days (from date of issue), if days are between 15 to 30 then fine
+      amount will be Rs 5per day.
+   5. If no. of days>30, per day fine will be Rs 50 per day & for days less than 30, Rs. 5 per
+      day.
+   6. After submitting the book, status will change from I to R.
+   7. If condition of fine is true, then details will be stored into fine table.
+
+*/
+
+-- Query 1
+CREATE TABLE borrower(roll_no int,name varchar(20),date_of_i date,name_of_book varchar(20),status varchar(10));
+
+-- Query 2
+CREATE TABLE fine(roll_no int,date_of_r date,amt int);
+
+-- Query 3
+INSERT INTO borrower values(1,'Nitesh','06-12-2022','Harry Potter','i');
+
+-- Query 4
+INSERT INTO borrower values(2,'Ajay','06-13-2022','Mahabharat','i');
+
+-- Query 5
+INSERT INTO borrower values(3,'Vivek','06-15-2022','Ramayan','i');
+
+-- Query 6
+INSERT INTO borrower values(4,'Sanket','07-25-2022','Bhagvadgita','i');
+
+-- Query 7
+INSERT INTO borrower values(5,'Yash','04-20-2022','Game Of Thrones','i');
+
+-- Query 8
+INSERT INTO borrower values(6,'Prathamesh','05-22-2022','AttitudeIsEverything','i');
+
+-- Query 9
+SELECT * FROM borrower;
+
+-- Query 10
+DECLARE
+   roll INT:= :rollNo;
+   b_name VARCHAR(20) := :bookname;
+   mdays INT:=0;
+   ndays DATE;
+   fine_amt INT:=0;
+BEGIN
+   SELECT date_of_i INTO ndays FROM borrower WHERE roll_no=roll AND name_of_book=b_name;
+   mdays:=sysdate-ndays;
+
+   IF mdays>=15 AND mdays<30 THEN
+      fine_amt:=(mdays-15)*5;
+   ELSIF mdays>=30 THEN
+      fine_amt:=15*5+(mdays-30)*50;
+   END IF;
+
+   UPDATE borrower SET status='r' WHERE roll_no=roll AND name_of_book=b_name;
+   IF fine_amt>0 THEN
+      INSERT INTO fine VALUES(roll,sysdate,fine_amt);
+   END IF;
+EXCEPTION
+   WHEN no_data_found THEN
+      dbms_output.put_line('No data found');
+   WHEN others THEN
+      dbms_output.put_line('Exception occurred');
+END;
+
+-- Query 11
+SELECT * FROM borrower;
+
+-- Query 12
+SELECT * FROM fine;
+
+
+
+
+
+
+
+
+
+
+//Oracle Procedures
+
+/*
+    ⁜ PL/SQL Stored Procedure
+
+    » Write a Stored Procedure namely procGrade for the
+    categorization of student. If marks scored by students in
+    examination is <=1500 and marks >=990 then student will be
+    placed in distinction category if marks scored are between 989
+    and 900 category is first class, if marks 899 and 825 category is
+    Higher Second Class
+    Write a PL/SQL block for using procedure created with above
+    requirement. Stud_Marks(name, total_marks) Result(Roll,
+    Name, Class)
+
+
+*/
+
+-- Query 1
+CREATE TABLE stud_marks(name varchar(20),total_marks number(5));
+
+-- Query 2
+CREATE TABLE result (roll number(3),name varchar(20),class varchar(20));
+
+
+-- Query 3
+CREATE OR REPLACE PROCEDURE procGrade(rno number,name varchar,marks number)
+IS
+    class varchar(20);
+BEGIN
+    IF(marks <=1500 and marks >=990) THEN
+        class := 'Distinction';
+    ELSIF(marks<=989 and marks>=900) THEN
+        class := 'First';
+    ELSIF(marks<=899 and marks>=825) THEN
+        class := 'Higher second';
+    END IF;
+
+    INSERT INTO stud_marks values(name,marks);
+    INSERT INTO result values(rno,name,class);
+END;
+
+
+-- Query 4
+BEGIN
+    procGrade(1,'Nitesh',877);
+    procGrade(2,'Ajay',1450);
+    procGrade(3,'Vivek',987);
+END;
+
+
+-- Query 5
+SELECT * FROM stud_marks;
+
+-- Query 6
+SELECT * FROM result;
+
+
+
+
+
+
+
+
+
+
+
+//Oracle Cursors
+
+/*
+    ⁜ Implicit Cursor
+
+    » Write an anonymous code block which will update marks of students to 40 if he has
+    scored between 35 to 39. Using IMPLICIT CURSOR parameters show database whether any
+    records have been updated or not.If updated,display how many records have been
+    updated.
+*/
+
+-- Query 1
+CREATE TABLE student(roll_no int,name varchar(20),marks int);
+
+-- Query 2
+INSERT INTO student VALUES(1,'abc',39);
+
+-- Query 3
+INSERT INTO student VALUES(2,'pqr',35);
+
+-- Query 4
+INSERT INTO student VALUES(3,'xyz',41);
+
+-- Query 5
+INSERT INTO student VALUES(4,'cde',37);
+
+-- Query 6
+INSERT INTO student VALUES(5,'lmo',46);
+
+-- Query 7
+SELECT * FROM student;
+
+-- Query 8
+BEGIN
+    UPDATE student SET marks=40 WHERE marks BETWEEN 35 AND 39;
+    IF SQL%notfound THEN
+        dbms_output.put_line('No records were updated');
+    ELSE
+        dbms_output.put_line('Total records updated : '||SQL%rowcount);
+    END IF;
+END;
+
+-- Query 9
+SELECT * FROM student;
+
+
+
+
+/*
+    ⁜ Explicit Cursor,FOR loop & Parametrized Explicit Cursor
+
+    » Write an anonymous code block to demonstrate use of EXPLICIT CURSOR,FOR Loop &
+    Parameterized Explicit Cursor.Copy the content of student table to another table. Before
+    copying,check whether second table consists of same roll number record.If so,discard it
+    otherwise copy it.
+*/
+
+-- Query 1
+CREATE TABLE student2(roll_no int,name varchar(20),marks int);
+
+-- Query 2 
+INSERT INTO student2 values(1,'Nitesh',39);
+
+-- Query 3
+INSERT INTO student2 values(2,'Ajay',35);
+
+-- Query 4
+INSERT INTO student2 values(3,'Vivek',41);
+
+-- Query 5
+INSERT INTO student2 values(4,'Sanket',37);
+
+-- Query 6
+INSERT INTO student2 values(5,'Yash',46);
+
+
+-- Query 7
+CREATE TABLE newstudent2(roll_no int,name varchar(20),marks int);
+
+-- Query 8
+INSERT INTO newstudent2 values(1,'Nitesh',45);
+
+-- Query 9
+INSERT INTO newstudent2 values(3,'Vivek',45);
+
+-- Query 10
+INSERT INTO newstudent2 values(7,'Kiran',95);
+
+-- Query 11
+INSERT INTO newstudent2 values(8,'Prathamesh',65);
+
+-- Query 12
+select * from student2;
+
+-- Query 13
+select * from newstudent2;
+
+
+-- Query 14
+DECLARE
+    CURSOR cur_s is select * from student2;
+    CURSOR cur_new(a int) is select * from newstudent2 where roll_no =a;
+    nrec newstudent2%rowtype;
+BEGIN
+    FOR srec in cur_s LOOP
+        OPEN cur_new(srec.roll_no);
+        FETCH cur_new INTO nrec;
+        IF cur_new%notfound THEN
+            INSERT INTO newstudent2 VALUES(srec.roll_no,srec.name,srec.marks);
+        END IF;
+        CLOSE cur_new;
+    END LOOP;
+END;
+
+-- Query 15
+SELECT * FROM newstudent2;
+
+
+
+
+
+
+
+
+
+
+
+
+//Oracle Triggers
+
+/*
+    ⁜ PL/SQL Triggers
+    
+    » Write a database trigger on Library table. The System
+    should keep track of the records that are being updated or
+    deleted. The old value of updated or deleted records should
+    be added in Library_Audit table.
+*/
+
+-- Query 1
+CREATE TABLE librarynew(bookno number(5),bookname varchar(20),author varchar(20));
+
+
+-- Query 2
+INSERT INTO librarynew VALUES (1,'C','Nitesh');
+
+-- Query 3
+INSERT INTO librarynew VALUES (2,'C++','Ajay');
+
+-- Query 4
+INSERT INTO librarynew VALUES (3,'PHP','Vivek');
+
+-- Query 5
+SELECT * FROM librarynew;
+
+-- Query 6
+CREATE TABLE audit_new (bookno number(5),bookname varchar(20),author varchar(20),updationstatus varchar(20));
+
+-- Query 7
+CREATE OR REPLACE TRIGGER t1new
+AFTER UPDATE OR DELETE ON
+    librarynew
+FOR EACH ROW
+
+DECLARE
+    op varchar(10);
+BEGIN
+    IF updating THEN
+        op:='Update';
+    END IF;
+    IF deleting THEN
+        op:='Delete';
+    END IF;
+    INSERT INTO audit_new VALUES(:old.bookno,:old.bookname,:old.author,op);
+END;
+
+
+-- Query 8
+SELECT * FROM librarynew;
+
+-- Query 9
+UPDATE librarynew SET bookname = 'CPP' WHERE bookno = 2;
+
+-- Query 10
+SELECT * FROM audit_new;
+
+-- Query 11
+SELECT * FROM librarynew;
+
+-- Query 12
+DELETE FROM librarynew WHERE bookno = 2;
+
+-- Query 13
+SELECT * FROM audit_new;
+
+-- Query 14
+SELECT * FROM librarynew;
+
+
+
+
+
+
+
+
+
+
+//Mongo CRUD
+
+
+use practical;
+db.createCollection('Students');
+
+db.Students.insert({'sName':'Nitesh','rollNo':'1'});
+db.Students.insert({'sName':'Ajay','rollNo':'2'});
+db.Students.insert({'sName':'Vivek','rollNo':'3'});
+
+db.Students.find();
+db.Students.find({'sName':'Vivek'});
+db.Students.find({'rollNo':{$gt:1}});
+
+db.Students.update({'sName':'Vivek'},{'sName':'Vicky'});
+db.Students.remove({'sName':'Nitesh'});
+
+
+
+
+
+
+
+
+
+
+//Mongo Aggregation and Indexing
+
+use Student;
+db.createCollection('Info');
+
+db.Info.insert({'name':'Nitesh','marks':'50'});
+db.Info.insert({'name':'Ajay','marks':'40'});
+db.Info.insert({'name':'Vivek','marks':'80'});
+
+db.Info.aggregate({$project:{'name':1,'marks':0}});
+
+db.Info.aggregate({$sort:{'marks':1}});
+db.Info.aggregate({$sort:{'marks':-1}});
+
+db.Info.aggregate({$limit:2});
+db.Info.aggregate({$limit:3});
+
+db.Info.aggregate({$skip:1});
+
+db.Info.ensureIndex({'name':1});
+db.Info.getIndexes();
+
+
+
+
+
+
+
+
+//Mongo Mapreduce
+
+use Savings;
+db.createCollection('money');
+
+db.money.insert({'month':'1','amount':'200'});
+db.money.insert({'month':'2','amount':'600'});
+db.money.insert({'month':'1','amount':'400'});
+
+var mapfunction=function(){ emit(this.cust_id,this.amt) };
+var reducefunction=function(cust_id,price){ return Array.sum(price); };
+
+db.money.mapReduce(mapfunction,reducefunction,{out:'result'});
+
+db.result.find();
