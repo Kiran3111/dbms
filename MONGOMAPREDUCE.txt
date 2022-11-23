@@ -1,0 +1,13 @@
+use Savings;
+db.createCollection('money');
+
+db.money.insert({'month':'1','amount':'200'});
+db.money.insert({'month':'2','amount':'600'});
+db.money.insert({'month':'1','amount':'400'});
+
+var mapfunction=function(){ emit(this.cust_id,this.amt) };
+var reducefunction=function(cust_id,price){ return Array.sum(price); };
+
+db.money.mapReduce(mapfunction,reducefunction,{out:'result'});
+
+db.result.find();
