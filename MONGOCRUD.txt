@@ -1,0 +1,13 @@
+use practical;
+db.createCollection('Students');
+
+db.Students.insert({'sName':'Nitesh','rollNo':'1'});
+db.Students.insert({'sName':'Ajay','rollNo':'2'});
+db.Students.insert({'sName':'Vivek','rollNo':'3'});
+
+db.Students.find();
+db.Students.find({'sName':'Vivek'});
+db.Students.find({'rollNo':{$gt:1}});
+
+db.Students.update({'sName':'Vivek'},{'sName':'Vicky'});
+db.Students.remove({'sName':'Nitesh'});
