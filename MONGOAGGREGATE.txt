@@ -1,0 +1,19 @@
+use Student;
+db.createCollection('Info');
+
+db.Info.insert({'name':'Nitesh','marks':'50'});
+db.Info.insert({'name':'Ajay','marks':'40'});
+db.Info.insert({'name':'Vivek','marks':'80'});
+
+db.Info.aggregate({$project:{'name':1,'marks':0}});
+
+db.Info.aggregate({$sort:{'marks':1}});
+db.Info.aggregate({$sort:{'marks':-1}});
+
+db.Info.aggregate({$limit:2});
+db.Info.aggregate({$limit:3});
+
+db.Info.aggregate({$skip:1});
+
+db.Info.ensureIndex({'name':1});
+db.Info.getIndexes();
