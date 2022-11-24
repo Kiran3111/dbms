@@ -555,7 +555,7 @@ db.Students.find();
 db.Students.find({'sName':'Vivek'});
 db.Students.find({'rollNo':{$gt:1}});
 
-db.Students.update({'sName':'Vivek'},{'sName':'Vicky'});
+db.Students.update({'sName':'Vivek'},{$set:{'sName':'Vicky'}});
 db.Students.remove({'sName':'Nitesh'});
 
 
